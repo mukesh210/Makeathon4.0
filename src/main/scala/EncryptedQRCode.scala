@@ -7,14 +7,9 @@ import net.glxn.qrgen.QRCode
 object EncryptedQRCode extends App {
   val genKey = "klix8TW3SMGtHLVO0ZbhwO8ggW0p+npHfB71epkvmE0="//AES.encodeBase64(AES.generateKey("AES", 256))
 
-  println(s"genKey: ${genKey}")
+  val userData: String = """{"username": "abc@gmail.com","address": "!Earth"}"""
 
-  val userData: String = "{\"username\": \"mukeshsprajapati210@gmail.com\",\"address\": \"A7-104, Splendour, Megapolis\"}"
-
-  val gson = new Gson()
-  val userDataJson = gson.toJson(userData)
-
-  val encrypted: Array[Byte] = AES.encrypt(userDataJson.toString.getBytes("UTF-8"), genKey)
+  val encrypted: Array[Byte] = AES.encrypt(userData.toString.getBytes("UTF-8"), genKey)
 
   val encryptedData: String = AES.encodeBase64(encrypted)
 
@@ -25,5 +20,4 @@ object EncryptedQRCode extends App {
   val result = new File("E:/Development/Scala/Makeathon4/result1.png")
 
   Files.copy(f.toPath, result.toPath)
-
 }
